@@ -1,0 +1,40 @@
+User
+  has_many :registered_applications
+
+RegisteredApplication
+  belongs_to :user ## we have a :user_id 
+
+
+routes.rb
+  resources :registered_applications
+
+
+CRUD
+RegisteredApplicationsController
+  # GET /registered_applications
+  def index
+
+  # GET /registered_applications/1
+  def show
+
+
+  # GET /registered_applications/new
+  def new
+
+  # POST /registered_applications
+  def create
+
+
+
+    # GET /registered_applications/1/edit
+  def edit
+  def update
+
+Views
+new.html.erb
+  = render partial: 'form'
+
+_form.html.erb
+  = form_for @registered_application ...
+
+   

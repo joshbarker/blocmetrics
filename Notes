@@ -1,0 +1,32 @@
+notes
+
+When a user registers a new application, you will need to save that registration and associate it with the user. 
+
+Generate a registered application model that is associated with the user. 
+
+The model should have a name and URL attribute.
+
+  rails g model registered_application name:string url:string 
+
+  check model (model.rb)(db/migrate)
+
+  rake db:migrate 
+
+With the registration model created, generate registered_applications_controller.rb with the appropriate CRUD actions.
+
+  rails g controller registered_applications index create show destroy 
+
+A user should see an index of all their registered applications. 
+
+Complete the index action and views. 
+
+Fill out the create action and views. 
+
+The create action and views should create a new registration associated with a user.
+
+Build out the read action and views as well. 
+
+The read view should display the registered application's name and URL. 
+
+Lastly, construct the delete action to de-register and destroy an existing application registration.
+
