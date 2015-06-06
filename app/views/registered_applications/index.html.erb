@@ -4,8 +4,6 @@
   <div class="row">
      <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
 
-
-    
       <%= link_to "New URL", new_registered_application_path, class: 'btn btn-success' %>
 
       <hr>
@@ -36,11 +34,12 @@
             <% @registered_applications.each do |registered_application| %>
               <tr id=<%= "task-#{registered_application.id}" %>>
                 <td><%= registered_application.name %></td>
-                <td><%= registered_application.url %></td>
+                           
+                <td><%= link_to registered_application.url,  registered_application %></td>
 
-                <td><%= link_to("Edit", registered_application , method: :edit, remote: true, class: 'glyphicon glyphicon-pencil', id: "#{registered_application.id}-complete") %></td>
+                <td><%= link_to("Edit", edit_registered_application_path(registered_application) , class: 'glyphicon glyphicon-pencil') %></td>
 
-                <td><%= link_to("Delete", registered_application , method: :delete, remote: true, class: 'glyphicon glyphicon-trash', id: "#{registered_application.id}-complete") %></td>
+                <td><%= link_to("Delete", registered_application , method: :delete, remote: true, class: 'glyphicon glyphicon-trash',id: "#{registered_application.id}-complete" ) %></td>
               </td>
               </tr>
             <% end %>

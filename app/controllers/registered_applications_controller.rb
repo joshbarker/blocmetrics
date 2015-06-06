@@ -25,6 +25,7 @@ class RegisteredApplicationsController < ApplicationController
   end
 
   def show
+     @registered_application = RegisteredApplication.find(params[:id])
   end
 
   def update
@@ -32,19 +33,13 @@ class RegisteredApplicationsController < ApplicationController
 
   def destroy
      @registered_application = RegisteredApplication.find(params[:id])
-     @registered_application.user = current_user
+     # @registered_application.user = current_user
+     @registered_application.destroy
+     redirect_to registered_applications_path
 
-     if @registered_application.destroy
-       flash[:notice] = "Domain was deleted successfully"
-       redirect_to registered_applications_path
-     else
-       flash[:error] = "There was an error deleting the Domain"
-       redirect_to registered_applications_path
-     end
-
-     respond_to do |format|
-       format.html
-       format.js
-     end
-   end
+     # respond_to do |format|
+     #   format.html
+     #   format.js
+     # end
+  end
 end
