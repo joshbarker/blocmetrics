@@ -1,11 +1,34 @@
-require 'faker'
+ require 'faker'
+ 
 
-app = RegisteredApplication.create(name: Faker::App.name, url: "www.example.com")
+ # Create Users
+ 5.times do
+   user = User.new(
+     name:     Faker::Name.name,
+     email:    Faker::Internet.email,
+     password: Faker::Lorem.characters(10)
+   )
+   user.skip_confirmation!
+   user.save!
+ end
+ users = User.all
 
-10.times do 
-  some_payload = {referer: Faker::Internet.domain_name, ip_address: Faker::Internet.ip_v6_address}
-  Event.create(name: Faker::Hacker.noun, registered_application: app, payload: some_payload  )
-end
+ # Create Domain
+ 10.times do
+   RegisteredApplication.create!(
+     name:  Faker::Lorem.word, 
+     url:  Faker::Internet.url('wwww.example.com')
+   )
+ end
+ registered_application = RegisteredApplication.all
+ 
+ user = User.first
+ user.skip_reconfirmation!
+ user.update_attributes!(
+   email: 'abmjosh@gmail.com',
+   password: 'helloworld'
+ )
 
 
- puts "Seed finished"
+
+ puts "It worked, Seed finished!"

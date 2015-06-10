@@ -13,6 +13,12 @@ Rails.application.routes.draw do
 
   # resources :events
 
+  # #1
+   namespace :api, defaults: { format: :json } do
+  # #2
+     resources :events, only: [:create]
+   end
+
 
 
   root to: 'welcome#index'

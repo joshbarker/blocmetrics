@@ -1,5 +1,4 @@
 class RegisteredApplicationsController < ApplicationController
-  
   before_filter :authenticate_user!
 
   def index
@@ -26,9 +25,26 @@ class RegisteredApplicationsController < ApplicationController
 
   def show
      @registered_application = RegisteredApplication.find(params[:id])
+     @events = @registered_application.events.group_by(&:name)
   end
 
+
+  def edit
+     @registered_application = RegisteredApplication.find(params[:id])
+  end
+
+
   def update
+      @registered_application = RegisteredApplication.find(params[:id])
+
+      if @registered_application.update_attributes(params.require(:registered_application).permit(:name, :url))
+        flash[:notice] = "Domain was updated."
+        redirect_to registered_applications_path
+      else
+        flash[:error] = "There was an error saving the domain. Please try again."
+        render :edit
+      end
+      
   end
 
   def destroy

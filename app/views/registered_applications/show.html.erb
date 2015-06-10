@@ -1,3 +1,36 @@
-<h1>RegisteredApplications#show</h1>
-<p>Find me in app/views/registered_applications/show.html.erb</p>
+<%= link_to "Back To My Domains", registered_applications_path, class: 'btn btn-success' %>
+
+<h1>Domain</h1>
+
+
+
+<%= form_for @registered_application do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+ 
+    <%= f.label :url %>
+    <%= f.text_field :url %>
+ 
+ <% end %>
+
+
+
+ <div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title"> Events</h3>
+  </div>
+
+  <div class="page-header">
+    <h5>Pie chart</h5>
+    <div class="well">
+      <%= pie_chart @registered_application.events.group(:name).count %>
+    </div>
+    <h5>Line chart</h5>
+    <div class="well">
+      <%= line_chart @registered_application.events.group(:created_at).count %>
+    </div>
+  </div><!-- end of page-header -->
+</div> <!-- end of panel -->
+
+
 
