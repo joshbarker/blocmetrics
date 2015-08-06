@@ -2,26 +2,34 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  get 'welcome/index'
-
-  get 'welcome/about'
-
-
-  resources :registered_applications
-
-  resources :users, only: [:index, :show]
-
-  # resources :events
-
   # #1
    namespace :api, defaults: { format: :json } do
   # #2
      resources :events, only: [:create]
    end
 
+   match 'create_event', to: 'events#create', via: [:options]
+   resources :events, only: [:create]
 
+  get 'welcome/index'
+
+  get 'welcome/about'
+
+
+
+  resources :users, only: [:index, :show]
 
   root to: 'welcome#index'
+ 
+  resources :registered_applications
+
+
+  # resources :events
+
+
+
+
+
 
   # authenticated :user do
   #   root :to => "registered_applications#show", as: :logged_in_root

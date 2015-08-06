@@ -26,6 +26,7 @@ class RegisteredApplicationsController < ApplicationController
   def show
      @registered_application = RegisteredApplication.find(params[:id])
      @events = @registered_application.events.group_by(&:name)
+     @events = @registered_application.events.count(params[:id])
   end
 
 
@@ -51,11 +52,16 @@ class RegisteredApplicationsController < ApplicationController
      @registered_application = RegisteredApplication.find(params[:id])
      # @registered_application.user = current_user
      @registered_application.destroy
-     redirect_to registered_applications_path
-
-     # respond_to do |format|
-     #   format.html
-     #   format.js
+     #    flash[:notice] = "Registered Application was removed."
+     # else
+     #   flash[:error] = "Registered Application couldn't be deleted. Try again."
      # end
+     # # redirect_to registered_applications_path
+
+     respond_to do |format|
+        format.html { redirect_to registered_applications_path, notice: 'Registered application was successfully destroyed.' }
+        format.json { head :no_content }
+     end
   end
+
 end
