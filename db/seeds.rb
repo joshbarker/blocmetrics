@@ -20,7 +20,7 @@
      url:  Faker::Internet.url('wwww.example.com')
    )
  end
- registered_application = RegisteredApplication.all
+ registered_applications = RegisteredApplication.all
  
  # Create an admin user
  admin = User.new(
@@ -53,13 +53,15 @@
 
 # Create Events
 event_names = ['Index', 'About', 'Contact']
-app = RegisteredApplication.first
-50.times do
-  event = app.events.create(
+#app = RegisteredApplication.
+RegisteredApplication.all.each do |app|
+
+ 50.times do
+  event = app.events.create!(
     name: event_names.sample
   )
   event.created_at = Time.now - rand(200).hours
   event.save
+ end
 end
-
 puts "It worked, Seed finished!"

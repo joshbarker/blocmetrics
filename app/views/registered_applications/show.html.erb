@@ -65,7 +65,7 @@
     <h5>Event History</h5>
     <div class="well">
       <%#= line_chart @registered_application.events.group_by_day(:created_at).count %>
-      <%= line_chart @registered_application.events.all.to_a.group_by_day {|ev| ev.created_at}.count %>
+      <%= line_chart @registered_application.events.all.to_a.group_by_day {|ev| ev.created_at}.map {|date,  array| [date, array.size]} %>
     </div>
   </div><!-- end of page-header -->
 </div> <!-- end of panel -->
